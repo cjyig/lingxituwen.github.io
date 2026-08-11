@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-    <span class="top-badge">微信小程序 · 无需下载安装</span>
+    <span class="top-badge">小程序 · 无需下载安装</span>
     <div class="header">
         <h1>灵析图文工具</h1>
         <p>老照片修复 · AI会议纪要 · 小说人物图谱 · 图片处理</p>
@@ -40,31 +40,30 @@
             <p>录音文字快速生成结构化纪要</p>
         </div>
         <div class="func-card">
-            <h3>小说人物关系图</h3>
-            <p>解析长篇文本生成人物关系图谱</p>
+            <h3>九宫格切图</h3>
+            <p>图片切分为九宫格</p>
         </div>
         <div class="func-card">
             <h3>多功能图片工具</h3>
-            <p>九宫格切图、压缩、水印处理</p>
+            <p>压缩、水印处理</p>
         </div>
     </div>
-    <button class="action-btn" onclick="openMini()">立即进入微信小程序</button>
+    <button class="action-btn" onclick="openMini()">立即进入小程序</button>
     <div class="desc-block">
         <h4>工具优势</h4>
         <ul>
-            <li>每次进入赠送免费AI处理额度</li>
             <li>上传素材仅临时运算，注重隐私防护</li>
             <li>多款便民图文工具持续更新</li>
         </ul>
     </div>
-    <div class="footer-tip">©灵析图文 ｜ 轻量化微信AI工具箱</div>
+    <div class="footer-tip">©灵析图文 ｜ 轻量化AI工具箱</div>
 <script>
 function openMini(){
     if(navigator.userAgent.includes("MicroMessenger")){
         //此处替换你的小程序跳转路径
         location.href="weixin://wxpay/bizpayurl?xxxx";
     }else{
-        alert("请在微信当中打开访问小程序");
+        alert("打开访问小程序");
     }
 }
 </script>
