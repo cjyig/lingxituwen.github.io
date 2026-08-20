@@ -5,65 +5,287 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>灵析图文｜一站式AI图文工具箱</title>
     <style>
-        * {margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans‑serif}
-        body{background:linear-gradient(180deg,#f0f4fc,#fff);padding:40px 24px;max-width:640px;margin:0 auto}
-        .top-badge{background:#e8f0fe;color:#2b5cb8;font-size:13px;padding:6px 14px;border-radius:30px;margin:0 auto 24px;width:fit-content}
-        .header{text-align:center;margin-bottom:48px}
-        .header h1{font-size:28px;color:#111827;margin-bottom:14px}
-        .header p{color:#64748b;font-size:16px;line-height:1.6}
-        .grid-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:60px}
-        .func-card{background:#fff;padding:28px 20px;border-radius:20px;box-shadow:0 4px 20px rgba(37,99,235,.08)}
-        .func-card:active{transform:translateY(-4px);box-shadow:0 8px 24px rgba(37,99,235,.13)}
-        .func-card h3{font-size:18px;color:#1e293b;margin-bottom:8px}
-        .func-card p{font-size:14px;color:#718096;line-height:1.5}
-        .action-btn{width:100%;padding:20px;border:none;border-radius:50px;font-size:18px;font-weight:600;color:#fff;background:linear-gradient(90deg,#2563eb,#4080ff);box-shadow:0 6px 18px rgba(37,99,235,.35)}
+        * {margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif}
+        :root{
+            --primary:#2563eb;
+            --primary-light:#4080ff;
+            --bg-gradient-start:#f0f4fc;
+            --bg-gradient-end:#ffffff;
+            --card-bg:#ffffff;
+            --text-title:#111827;
+            --text-desc:#64748b;
+            --tag-blue:#e8f0fe;
+            --tag-green:#ecfdf3;
+            --tag-orange:#fff7ed;
+            --tag-purple:#f5f3ff;
+        }
+        body{
+            background:linear-gradient(180deg,var(--bg-gradient-start),var(--bg-gradient-end));
+            padding:40px 24px;
+            max-width:680px;
+            margin:0 auto;
+            min-height:100vh;
+        }
+        .top-badge{
+            background:var(--tag-blue);
+            color:var(--primary);
+            font-size:13px;
+            padding:6px 16px;
+            border-radius:999px;
+            margin:0 auto 24px;
+            width:fit-content;
+            font-weight:500;
+        }
+        .header{text-align:center;margin-bottom:52px}
+        .header h1{
+            font-size:32px;
+            background:linear-gradient(90deg,#1d4ed8,#4080ff);
+            -webkit-background-clip:text;
+            color:transparent;
+            margin-bottom:16px;
+        }
+        .header p{
+            color:var(--text-desc);
+            font-size:16px;
+            line-height:1.7;
+        }
+        .sub-desc{
+            margin-top:10px;
+            font-size:14px;
+            color:#94a3b8;
+        }
+        .grid-wrap{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:20px;
+            margin-bottom:50px;
+        }
+        .func-card{
+            background:var(--card-bg);
+            padding:28px 22px;
+            border-radius:22px;
+            box-shadow:0 4px 22px rgba(37,99,235,.09);
+            transition:all 0.24s ease;
+            border:1px solid #f1f5f9;
+        }
+        .func-card:hover{
+            transform:translateY(-6px);
+            box-shadow:0 10px 30px rgba(37,99,235,.14);
+        }
+        .func-card:active{transform:translateY(-2px)}
+        .card-tag{
+            display:inline-block;
+            font-size:11px;
+            padding:3px 8px;
+            border-radius:6px;
+            margin-bottom:10px;
+        }
+        .tag-ai{background:var(--tag-purple);color:#7e22ce}
+        .tag-img{background:var(--tag-green);color:#065f46}
+        .tag-doc{background:var(--tag-orange);color:#c2410c}
+        .func-card h3{
+            font-size:18px;
+            color:var(--text-title);
+            margin-bottom:10px;
+        }
+        .func-card p{
+            font-size:14px;
+            color:var(--text-desc);
+            line-height:1.6;
+        }
+        .action-btn{
+            width:100%;
+            padding:20px;
+            border:none;
+            border-radius:999px;
+            font-size:18px;
+            font-weight:600;
+            color:#fff;
+            background:linear-gradient(90deg,var(--primary),var(--primary-light));
+            box-shadow:0 6px 22px rgba(37,99,235,.36);
+            transition:transform 0.2s;
+        }
         .action-btn:active{transform:scale(0.97)}
-        .desc-block{margin:40px 0;background:#fff;border-radius:18px;padding:24px;box-shadow:0 3px 16px #00000009}
-        .desc-block h4{margin-bottom:12px;color:#222}
-        .desc-block li{margin-left:16px;color:#666;font-size:14px;line-height:1.8;list-style:disc}
-        .footer-tip{margin-top:50px;text-align:center;font-size:12px;color:#a0aec0}
+        .section-title{
+            font-size:20px;
+            color:#1e293b;
+            margin:48px 0 20px;
+            font-weight:600;
+        }
+        .desc-block{
+            margin:24px 0;
+            background:#fff;
+            border-radius:20px;
+            padding:26px;
+            box-shadow:0 3px 18px rgba(0,0,0,0.07);
+            border:1px solid #f1f5f9;
+        }
+        .desc-block h4{
+            margin-bottom:14px;
+            color:#1e293b;
+            font-size:17px;
+        }
+        .desc-block li{
+            margin-left:18px;
+            color:#475569;
+            font-size:14.5px;
+            line-height:1.85;
+            list-style:disc;
+            margin-bottom:6px;
+        }
+        .step-wrap{
+            display:flex;
+            gap:12px;
+            overflow-x:auto;
+            padding-bottom:8px;
+        }
+        .step-item{
+            flex:0 0 130px;
+            background:#f8fafc;
+            padding:16px 12px;
+            border-radius:14px;
+            text-align:center;
+        }
+        .step-num{
+            width:28px;height:28px;
+            border-radius:50%;
+            background:var(--primary);
+            color:#fff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            margin:0 auto 10px;
+            font-size:14px;
+        }
+        .step-item p{
+            font-size:13px;
+            color:#475569;
+            line-height:1.5;
+        }
+        .footer-tip{
+            margin-top:60px;
+            text-align:center;
+            font-size:12px;
+            color:#94a3b8;
+            line-height:1.7;
+        }
+        @media(max-width:420px){
+            .grid-wrap{grid-template-columns:1fr;}
+            .header h1{font-size:26px;}
+        }
     </style>
 </head>
 <body>
-    <span class="top-badge">小程序 · 无需下载安装</span>
+    <span class="top-badge">微信小程序 · 无需下载安装</span>
     <div class="header">
-        <h1>灵析图文工具</h1>
-        <p>老照片修复 · AI会议纪要 · 小说人物图谱 · 图片处理</p>
+        <h1>灵析图文工具箱</h1>
+        <p>一站式AI图文处理平台，图片修复、文档处理、文案生成全部搞定</p>
+        <div class="sub-desc">轻量化在线工具，手机直接使用</div>
     </div>
+
+    <h2 class="section-title">全部工具</h2>
     <div class="grid-wrap">
         <div class="func-card">
+            <span class="card-tag tag-ai">AI图像</span>
             <h3>老照片高清修复</h3>
-            <p>去除划痕、褪色老旧照片翻新</p>
+            <p>修复模糊、划痕、破损老照片，智能补全细节，还原清晰人像，支持黑白照片翻新。</p>
         </div>
         <div class="func-card">
+            <span class="card-tag tag-ai">AI文档</span>
             <h3>AI会议纪要整理</h3>
-            <p>录音文字快速生成结构化纪要</p>
+            <p>录音转文字，自动提取重点、任务、待办，输出结构化钉钉风格会议纪要。</p>
         </div>
         <div class="func-card">
+            <span class="card-tag tag-img">图片工具</span>
             <h3>九宫格切图</h3>
-            <p>图片切分为九宫格</p>
+            <p>上传图片一键切割朋友圈九宫格，自动生成9张等分图片，直接保存发布。</p>
         </div>
         <div class="func-card">
-            <h3>多功能图片工具</h3>
-            <p>压缩、水印处理</p>
+            <span class="card-tag tag-img">图片工具</span>
+            <h3>多功能图片处理</h3>
+            <p>图片压缩、添加水印、裁剪旋转、格式转换，满足日常图片编辑需求。</p>
+        </div>
+        <div class="func-card">
+            <span class="card-tag tag-doc">文档识别</span>
+            <h3>OCR图文提取</h3>
+            <p>图片文字识别，截图、照片、证件快速提取文字，复制导出文本。</p>
+        </div>
+        <div class="func-card">
+            <span class="card-tag tag-img">海报制作</span>
+            <h3>朋友圈海报生成</h3>
+            <p>快速生成朋友圈宣传海报，简约高级模板，替换文字即可出图。</p>
+        </div>
+        <div class="func-card">
+            <span class="card-tag tag-ai">AI文案</span>
+            <h3>AI文案生成</h3>
+            <p>短视频文案、朋友圈文案、小说片段、广告投流素材AI一键生成。</p>
+        </div>
+        <div class="func-card">
+            <span class="card-tag tag-ai">AI图像</span>
+            <h3>老照片智能上色</h3>
+            <p>黑白老照片AI自动上色，还原年代真实色彩，家庭旧照翻新。</p>
+        </div>
+        <div class="func-card">
+            <span class="card-tag tag-img">图片工具</span>
+            <h3>图片换底色</h3>
+            <p>证件照换背景，一键替换白/红/蓝底色，无需手动抠图。</p>
+        </div>
+        <div class="func-card">
+            <span class="card-tag tag-doc">文档解析</span>
+            <h3>文档解析处理</h3>
+            <p>PDF、图片文档内容提取，整理文本，方便复制编辑。</p>
         </div>
     </div>
+
     <button class="action-btn" onclick="openMini()">立即进入小程序</button>
+
+    <h2 class="section-title">使用流程</h2>
     <div class="desc-block">
-        <h4>工具优势</h4>
+        <div class="step-wrap">
+            <div class="step-item">
+                <div class="step-num">1</div>
+                <p>打开小程序</p>
+            </div>
+            <div class="step-item">
+                <div class="step-num">2</div>
+                <p>选择对应工具</p>
+            </div>
+            <div class="step-item">
+                <div class="step-num">3</div>
+                <p>上传素材输入内容</p>
+            </div>
+            <div class="step-item">
+                <div class="step-num">4</div>
+                <p>生成并保存结果</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">产品优势</h2>
+    <div class="desc-block">
+        <h4>为什么选择灵析图文</h4>
         <ul>
-            <li>上传素材仅临时运算，注重隐私防护</li>
-            <li>多款便民图文工具持续更新</li>
+            <li>素材仅临时运算处理，不永久存储用户上传文件，注重隐私防护</li>
+            <li>集合图片、文档、文案多类工具，一个小程序搞定多种需求</li>
+            <li>轻量化小程序，无需下载APP，微信内直接打开即用</li>
+            <li>持续迭代更新功能，根据用户反馈新增实用图文能力</li>
+            <li>手机端深度适配，操作简单，普通用户也可以快速上手</li>
+            <li>支持图片修复、文档处理、文案创作，覆盖个人、办公、自媒体场景</li>
         </ul>
     </div>
-    <div class="footer-tip">©灵析图文 ｜ 轻量化AI工具箱</div>
+
+    <div class="footer-tip">
+        © 2026 灵析图文 ｜ 一站式AI图文工具箱<br>
+        本页面为小程序落地页，所有功能请在微信小程序内体验
+    </div>
+
 <script>
 function openMini(){
     if(navigator.userAgent.includes("MicroMessenger")){
-        //此处替换你的小程序跳转路径
+        // 替换为你的小程序跳转路径
         location.href="weixin://wxpay/bizpayurl?xxxx";
     }else{
-        alert("打开访问小程序");
+        alert("请在微信中打开，访问灵析图文小程序");
     }
 }
 </script>
